@@ -1,0 +1,23 @@
+<!-- bus_enquiry/templates/bus_enquiry/route_list.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Available Routes</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <style>
+        li{
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Available Routes</h1>
+    <ul>
+        {% for route in routes %}
+            <li>{{ route.name }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

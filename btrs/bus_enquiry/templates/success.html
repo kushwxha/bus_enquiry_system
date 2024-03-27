@@ -1,0 +1,148 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<style>
+    * {
+      margin: 0px;
+      padding: 0;
+    }
+  
+    body,html{
+      height: 100%;
+    }
+  
+    .bg{
+      background-image: url(https://cdn.pixabay.com/photo/2017/01/18/16/46/hong-kong-1990268_1280.jpg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      height: 100%;
+    }
+  
+    .row{
+      display: flex;
+      justify-content: center;
+    }
+    .box {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      margin: 30px;
+      padding: 30px;
+      width: 400px;
+      height: 380px;
+      border: 1px solid transparent;
+      background-color: white;
+      border-radius: 7px;
+    }
+  
+    .box h2{
+      text-align : center;
+      display: block;
+      font-size: 2.5rem;
+    }
+  
+    .navbar{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: #F8E8A2;
+      padding: 0;
+      height: 8vh;
+    }
+  
+    ul{
+      list-style: none;
+      background: transparent;
+    }
+  
+    ul li{
+      display: inline-block;
+      position: relative; 
+    }
+    ul li a{
+      display: block;
+      padding: 20px 25px;
+      color: #f19502;
+      text-decoration: none;
+      font-size: 20px;
+      height: 7vh;
+    }
+  
+    ul li ul.dropdown li{
+      display: block;
+      text-decoration: none;
+    }
+  
+    ul li ul.dropdown{
+      width: 100%;
+      background: #fff;
+      position: absolute;
+      z-index: 999;
+      display: none;
+    }
+  
+    ul li a:hover{
+      text-decoration: none;
+      color: darkgreen;
+    }
+  
+    ul li:hover ul.dropdown{
+      display: block;
+    }
+  
+    .navbar ul .home{
+      color: black; 
+      font-size: 1.4rem;
+    }
+  
+    .navbar ul .home:hover{
+      color: darkgreen;
+    }
+
+    .form-group label{
+      font-weight: bold;
+      color:gray
+  }
+
+  .btn-default {
+      font-weight: bold;
+      color: gray;
+  }
+  .btn{
+      font-weight: bold;
+  }
+  .text{
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  </style>
+  <div class="bg">
+    <div class="navbar">
+        <h3>BusHub</h3>
+        <ul>
+          <li><a href="{% url 'home' %}" class="home">Home</a></li>
+          <li><a href="{% url 'findbus' %}">Book Now</a></li>
+          <li>
+            <a href="#">Account <i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown">
+                <li><a href="#">Profile</a></li>
+              <li><a href="#">Bookings</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 mx-auto">
+            <form action="{% url 'logout'%}" method="post">
+                {% csrf_token %}
+                <div class="text">{{user}} Successfull Login {{id}}</div>
+
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-success float-right">Sign Out</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+  </div>
+{% endblock %}

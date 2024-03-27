@@ -1,0 +1,162 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
+    body,html{
+        height: 100%;
+    }
+
+    .bg{
+      
+      background-image: url(https://img.freepik.com/free-photo/concept-school-education-with-school-accessories-space-text_185193-109804.jpg?t=st=1709808341~exp=1709811941~hmac=439a8ae86b777a7586dd6e63f419954598a9298db58fb29fa9df17ceafc5633a&w=1060);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      height: 100%;
+      width: auto;
+    }
+    .box{
+        display: flex;
+        justify-content: center;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background: linear-gradient(#9fec9f, #eeffee);
+        flex-wrap: wrap;
+        border: 1px  solid transparent;
+        border-radius: 7px;
+        height: 40vh;
+        padding: 10px;
+    }
+    .navbar{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: transparent;
+      padding: 0;
+      height: 8vh;
+    }
+  
+    ul{
+      list-style: none;
+      background: transparent;
+    }
+  
+    ul li{
+      display: inline-block;
+      position: relative; 
+    }
+    ul li a{
+      display: block;
+      padding: 20px 25px;
+      color: #f19502;
+      text-decoration: none;
+      font-size: 20px;
+      height: 7vh;
+    }
+  
+    ul li ul.dropdown li{
+      display: block;
+      text-decoration: none;
+    }
+  
+    ul li ul.dropdown{
+      width: 100%;
+      background: #fff;
+      position: absolute;
+      z-index: 999;
+      display: none;
+    }
+  
+    ul li a:hover{
+      background: #f19502;
+      text-decoration: none;
+      color: darkgreen;
+    }
+  
+    ul li:hover ul.dropdown{
+      display: block;
+    }
+  
+    .navbar ul .home{
+      color: black; 
+      font-size: 1.4rem;
+    }
+  
+    .navbar ul .home:hover{
+      color: darkgreen;
+    }
+
+    .form-group label{
+        font-weight: bold;
+        color:gray
+    }
+
+    .btn-default {
+        font-weight: bold;
+        color: gray;
+    }
+    .btn{
+        font-weight: bold;
+    }
+    .box h2{
+        text-align: center;
+        font-size:2.5rem;
+    }
+
+</style>
+<div class="bg">
+    <div class="navbar">
+        <h3>BusHub</h3>
+        <ul>
+          <li><a href="#" class="home">Home</a></li>
+          <li><a href="#">Book Now</a></li>
+          <li>
+            <a href="#">Account <i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown">
+                <li><a href="#">Profile</a></li>
+              <li><a href="{% url 'seebookings'%}">Bookings</a></li>
+              <li><a href="#">Cancel</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+        <div class="row justify-content-center align-content-center">
+            <div class="col-sm-3 box" style="margin-top: 70px">
+                <div>
+                <h2>Find bus</h2>
+                <form action="{% url 'findbus' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="example-email-input" class="col-2 col-form-label">From</label>
+                        <div class="col-10">
+                            <input name='source' class="form-control" type="text" id="example-email-input">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-email-input" class="col-2 col-form-label">To</label>
+                        <div class="col-10">
+                            <input name='dest' class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-email-input" class="col-2 col-form-label" >Date</label>
+                        <div class="col-10">
+                            <input name='date' class="form-control" type="date" placeholder="YYYY-MM-DD">
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-success float-right">Find bus</button>
+                    </div>
+                    {{error}}
+
+                </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

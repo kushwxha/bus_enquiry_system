@@ -1,0 +1,202 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
+    body,html{
+        height: 100%;
+    }
+
+    .bg{
+      
+      background-image: url(https://img.freepik.com/free-photo/concept-school-education-with-school-accessories-space-text_185193-109804.jpg?t=st=1709808341~exp=1709811941~hmac=439a8ae86b777a7586dd6e63f419954598a9298db58fb29fa9df17ceafc5633a&w=1060);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      height: 100%;
+      width: auto;
+    }
+    .box{
+        display: flex;
+        justify-content: center;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background: linear-gradient(#9fec9f, #eeffee);
+        flex-wrap: wrap;
+        border: 1px  solid transparent;
+        border-radius: 7px;
+        height: 40vh;
+        padding: 10px;
+    }
+    .navbar{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: transparent;
+      padding: 0;
+      height: 8vh;
+    }
+  
+    ul{
+      list-style: none;
+      background: transparent;
+    }
+  
+    ul li{
+      display: inline-block;
+      position: relative; 
+    }
+    ul li a{
+      display: block;
+      padding: 20px 25px;
+      color: #f19502;
+      text-decoration: none;
+      font-size: 20px;
+      height: 7vh;
+    }
+  
+    ul li ul.dropdown li{
+      display: block;
+      text-decoration: none;
+    }
+  
+    ul li ul.dropdown{
+      width: 100%;
+      background: #fff;
+      position: absolute;
+      z-index: 999;
+      display: none;
+    }
+  
+    ul li a:hover{
+      background: #f19502;
+      text-decoration: none;
+      color: darkgreen;
+    }
+  
+    ul li:hover ul.dropdown{
+      display: block;
+    }
+  
+    .navbar ul .home{
+      color: black; 
+      font-size: 1.4rem;
+    }
+  
+    .navbar ul .home:hover{
+      color: darkgreen;
+    }
+
+    .form-group label{
+        font-weight: bold;
+        color:gray
+    }
+
+    .btn-default {
+        font-weight: bold;
+        color: gray;
+    }
+    .btn{
+        font-weight: bold;
+    }
+    .box h2{
+        text-align: center;
+        font-size:2.5rem;
+    }
+
+    tbody{
+      background: white;
+    }
+    label{
+      font-weight: bold;
+    }
+
+    .seats{
+      margin-left: 17px;
+    }
+    h2{
+      text-align: center;
+      font-weight: bold;
+    }
+    .btn{
+      margin-left: 10vw;
+    }
+</style>
+
+<div class="bg">
+    <div class="navbar">
+        <h3>BusHub</h3>
+        <ul>
+          <li><a href="#" class="home">Home</a></li>
+          <li><a href="#">Book Now</a></li>
+          <li>
+            <a href="#">Account <i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown">
+                <li><a href="#">Profile</a></li>
+              <li><a href="#">Bookings</a></li>
+              <li><a href="#">Cancel</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+<h3>{{msg}}</h3>
+<h2>List of buses</h2>
+<table class="table table-striped" >
+    <thead style="background-color: blue;color: white;">
+    <td>ID</td>
+    <td>NAME</td>
+    <td>SOURCE</td>
+    <td>DESTINATION</td>
+    <td>NUM OF SEATS</td>
+    <td>NUM OF SEATS REM</td>
+    <td>PRICE</td>
+    <td>DATE</td>
+    <td>TIME</td>
+
+    </thead>
+
+    {% for row in bus_list %}
+    <tbody>
+        <td>{{row.id }}</td>
+        <td>{{row.bus_name}}</td>
+        <td>{{row.source}}</td>
+        <td>{{row.dest}}</td>
+        <td>{{row.nos}}</td>
+        <td>{{row.rem}}</td>
+        <td>{{row.price}}</td>
+        <td>{{row.date}}</td>
+        <td>{{row.time}}</td>
+
+
+    </tbody>
+    {% endfor %}
+</table>
+<form action="{% url 'bookings' %}" method="post">
+    <h2>Choose bus to book</h2>
+    {% csrf_token %}
+    <div class="col-auto">
+        <label for="example-email-input" class="col-2 col-form-label">Bus ID</label>
+        <div class="col-5">
+            <input name='bus_id' class="form-control" type="number" id="example-email-input">
+        </div>
+    </div>
+    <div class="col=auto">
+        <label for="example-email-input" class="col-2 col-form-label seats">Number of seats</label>
+        <div class="col-5">
+            <input name='no_seats' class="form-control seats" type="number">
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="btn">
+        <button type="submit" class="btn btn-success float-left">Book bus</button>
+    </div>
+
+
+    {{error}}
+
+</form>
+</div>
+{% endblock %}

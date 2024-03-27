@@ -1,0 +1,202 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
+    body,html{
+        height: 100%;
+    }
+
+    .bg{
+      
+      background-image: url(https://img.freepik.com/free-photo/concept-school-education-with-school-accessories-space-text_185193-109804.jpg?t=st=1709808341~exp=1709811941~hmac=439a8ae86b777a7586dd6e63f419954598a9298db58fb29fa9df17ceafc5633a&w=1060);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      height: 100%;
+      width: auto;
+    }
+    .box{
+        display: flex;
+        justify-content: center;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background: linear-gradient(#9fec9f, #eeffee);
+        flex-wrap: wrap;
+        border: 1px  solid transparent;
+        border-radius: 7px;
+        height: 40vh;
+        padding: 10px;
+    }
+    .navbar{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: transparent;
+      padding: 0;
+      height: 8vh;
+    }
+  
+    ul{
+      list-style: none;
+      background: transparent;
+    }
+  
+    ul li{
+      display: inline-block;
+      position: relative; 
+    }
+    ul li a{
+      display: block;
+      padding: 20px 25px;
+      color: #f19502;
+      text-decoration: none;
+      font-size: 20px;
+      height: 7vh;
+    }
+  
+    ul li ul.dropdown li{
+      display: block;
+      text-decoration: none;
+    }
+  
+    ul li ul.dropdown{
+      width: 100%;
+      background: #fff;
+      position: absolute;
+      z-index: 999;
+      display: none;
+    }
+  
+    ul li a:hover{
+      background: #f19502;
+      text-decoration: none;
+      color: darkgreen;
+    }
+  
+    ul li:hover ul.dropdown{
+      display: block;
+    }
+  
+    .navbar ul .home{
+      color: black; 
+      font-size: 1.4rem;
+    }
+  
+    .navbar ul .home:hover{
+      color: darkgreen;
+    }
+
+    .form-group label{
+        font-weight: bold;
+        color:gray
+    }
+
+    .btn-default {
+        font-weight: bold;
+        color: gray;
+    }
+    .btn{
+        font-weight: bold;
+    }
+    .box h2{
+        text-align: center;
+        font-size:2.5rem;
+    }
+
+    span{
+        width: auto;
+        font-size: 1.75rem;
+        font-weight: 500;
+        color: #f19502;
+    }
+    .container{
+        width: 50vw;
+        margin-top: 50px;
+    }
+</style>
+<div class="bg">
+    <div class="navbar">
+        <h3>BusHub</h3>
+        <ul>
+          <li><a href="#" class="home">Home</a></li>
+          <li><a href="#">Book Now</a></li>
+          <li>
+            <a href="#">Account <i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown">
+                <li><a href="#">Profile</a></li>
+              <li><a href="#">Bookings</a></li>
+              <li><a href="#">Cancel</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+
+<div class="container" action="{% url 'home' %}" method="post">
+    <h2>Booking Confirmation</h2>
+<form action="{% url 'seebookings' %}"  method="POST">
+    {% csrf_token %}
+    <span id="element"></span>
+    <h3>Bill details</h3>
+    <!-- Button to Open the Modal -->
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+        Bill details
+    </button>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Ticket Details</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><b>Bus name:</b> {{book.bus_name}}</li>
+                        <li class="list-group-item"><b>Starting point:</b> {{book.source}}</li>
+                        <li class="list-group-item"><b>Destination point:</b> {{book.dest}}</li>
+                        <li class="list-group-item"><b>Number of seats:</b> {{book.nos}}</li>
+                        <li class="list-group-item"><b>Price:</b> {{book.price}}</li>
+                        <li class="list-group-item"><b>Cost:</b> {{book.cost}}</li>
+                        <li class="list-group-item"><b>Date:</b> {{book.date}}</li>
+                        <li class="list-group-item"><b>Time:</b> {{book.time}}</li>
+                    </ul>
+
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="pull-right">
+        <button type="submit" class="btn btn-primary float-right">OK</button>
+    </div>
+
+
+</form>
+</div>
+ <!-- Load library from the CDN -->
+ <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+ <!-- Setup and start animation! -->
+ <script>
+   var typed = new Typed('#element', {
+     strings: ['Thank You!', 'Your Booking Has been Confirmed!'],
+     typeSpeed: 50,
+   });
+ </script>
+{% endblock %}

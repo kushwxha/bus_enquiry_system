@@ -1,0 +1,195 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
+    body,html{
+        height: 100%;
+    }
+
+    .bg{
+      
+      background: url(https://images.pexels.com/photos/68427/pexels-photo-68427.jpeg?auto=compress&cs=tinysrgb&w=600);
+      width: 100vw;
+      height: 150%;
+      background-position: center;
+      background-size: 100%;
+    }
+    .box{
+        display: flex;
+        justify-content: center;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background: linear-gradient(#9fec9f, #eeffee);
+        flex-wrap: wrap;
+        border: 1px  solid transparent;
+        border-radius: 7px;
+        height: 40vh;
+        padding: 10px;
+    }
+    .navbar{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: white;
+      padding: 0;
+      height: 8vh;
+    }
+  
+    ul{
+      list-style: none;
+      background: transparent;
+    }
+  
+    ul li{
+      display: inline-block;
+      position: relative; 
+    }
+    ul li a{
+      display: block;
+      padding: 20px 25px;
+      color: #f19502;
+      text-decoration: none;
+      font-size: 20px;
+      height: 7vh;
+    }
+  
+    ul li ul.dropdown li{
+      display: block;
+      text-decoration: none;
+    }
+  
+    ul li ul.dropdown{
+      width: 100%;
+      background: #fff;
+      position: absolute;
+      z-index: 999;
+      display: none;
+    }
+  
+    ul li a:hover{
+      background: #f19502;
+      text-decoration: none;
+      color: darkgreen;
+    }
+  
+    ul li:hover ul.dropdown{
+      display: block;
+    }
+  
+    .navbar ul .home{
+      color: black; 
+      font-size: 1.4rem;
+    }
+  
+    .navbar ul .home:hover{
+      color: darkgreen;
+    }
+
+    .form-group label{
+        font-weight: bold;
+        color:gray
+    }
+
+    .btn-default {
+        font-weight: bold;
+        color: gray;
+    }
+    .btn{
+        font-weight: bold;
+    }
+    .box h2{
+        text-align: center;
+        font-size:2.5rem;
+    }
+    .list{
+    display: inline-flex;
+    justify-content: center;
+    align-content: center;
+    margin: 10px;
+    padding: 0;
+}
+h2{
+    text-align: center;
+    margin-top: 20px;
+}
+.card-item{
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.button{
+  margin-left: 40vw;
+}
+</style>
+<div class="bg">
+    <div class="navbar">
+        <h3>BusHub</h3>
+        <ul>
+          <li><a href="{% url 'home' %}" class="home">Home</a></li>
+          <li><a href="#">Book Now</a></li>
+          <li>
+            <a href="#">Account <i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown">
+                <li><a href="#">Profile</a></li>
+              <li><a href="#">Bookings</a></li>
+              <li><a href="#">Cancel</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+<h3>{{msg}}</h3>
+<h2>Bookings</h2>
+{% for row  in book_list %}
+<div class="card list" style="width: 18rem">
+        <div class="card-header" style="background-color: #9fec9f;">{{row.id}}</div>
+        <div class="card-body">
+            <div class="card-text">Name: {{row.name}}</div>
+            <hr class="divider">
+            <div class="card-text">Bus name: {{row.bus_name}}</div>
+            <hr class="divider">
+            <div class="card-text">From: {{row.source}}</div>
+            <hr class="divider">
+            <div class="card-text">To: {{row.dest}}</div>
+            <hr class="divider">
+            <div class="card-text">Seats: {{row.nos}}</div>
+            <hr class="divider">
+            <div class="card-text">Price: {{row.price}}</div>
+            <hr class="divider">
+            <div class="card-text">Cost: {{row.cost}} </div>
+            <hr class="divider">
+            <div class="card-text">Date: {{row.date}}</div>
+            <hr class="divider">
+            <div class="card-text">Time: {{row.time}}</div>
+            <hr class="divider">
+            <div class="card-text">Status: {{row.status}}</div>
+        </div>
+    
+</div>
+{% endfor %}
+
+<form action="{% url 'cancellings' %}" method="post">
+    <h2>Choose bus to book</h2>
+    {% csrf_token %}
+    <div class="col-auto">
+        <label for="example-email-input" class="col-2 col-form-label bold">Bus ID</label>
+        <div class="col-5">
+            <input name='bus_id' class="form-control" type="number" id="example-email-input">
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <div class="button">
+        <button type="submit" class="btn btn-danger float-left">Cancel bus</button>
+    </div>
+
+
+    {{error}}
+
+</form>
+</div>
+{% endblock %}
